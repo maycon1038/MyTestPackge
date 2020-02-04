@@ -8,7 +8,6 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.3'
-		classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -21,8 +20,8 @@ plugins {
 publishing {
 	repositories {
 		maven {
-			name = "mytestpackage"
-			url = uri("https://maven.pkg.github.com/msm.com.br/mytestpackage")
+			name = "maycon1038"
+			url = uri("https://maven.pkg.github.com/maycon1038/MyTestPackge")
 			credentials {
 				username = project.findProperty("gpr.user") ?: System.getenv("maycon1038")
 				password = project.findProperty("gpr.key") ?: System.getenv("ma205910")
