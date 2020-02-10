@@ -1,5 +1,44 @@
 apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
 
+
+def githubProperties = new Properties()
+githubProperties.load(new FileInputStream(rootProject.file("github.properties"))) //Set env variable GPR_USER & GPR_API_KEY if not adding a properties file
+
+def getVersionName = { ->
+    return "1.1" // Replace with version Name
+}
+
+def getArtificatId = { ->
+    return "librarytestsomar" // Replace with library name ID
+}
+
+publishing {
+
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/maycon1038/MyTestPackge")
+            credentials {
+                /** Create github.properties in root project folder file with
+                 ** gpr.usr=GITHUB_USER_ID & gpr.key=PERSONAL_ACCESS_TOKEN
+                 ** Set env variable GPR_USER & GPR_API_KEY if not adding a properties file**/
+            //    username ="maycon1038"
+              // password = "c2657dc3cdad29fd5b63967ce35dbbaf451aade7"
+                 username = githubProperties['gpr.usr'] ?: System.getenv("GPR_USER")
+                 password = githubProperties['gpr.key'] ?: System.getenv("GPR_API_KEY")
+            }
+        }
+    }
+
+    publications {
+        gpr(MavenPublication) {
+            groupId 'br.com.msm' // Replace with group ID
+            artifactId getArtificatId()
+            version getVersionName()
+        }
+    }
+}
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -21,6 +60,7 @@ android {
     }
 
 }
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
